@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production build
+dist/
+build/
+
+# Temp & OS files
+.DS_Store
+Thumbs.db
+*.log
+extracted_assets/
+pdf_renders/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
