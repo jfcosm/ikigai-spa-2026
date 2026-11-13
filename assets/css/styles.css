@@ -165,7 +165,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 92px;
 }
 
 .brand-logo {
@@ -179,10 +179,24 @@ button {
   transform: translateY(-1px);
 }
 
-.brand-logo img {
-  height: 54px;
+.brand-logo img,
+.nav-logo-img {
+  height: 64px;
   width: auto;
+  max-width: 250px;
   object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .header-inner {
+    height: 78px;
+  }
+  .brand-logo img,
+  .nav-logo-img {
+    height: 52px;
+    max-width: 190px;
+  }
 }
 
 /* Navegación de escritorio */
@@ -1235,8 +1249,9 @@ button {
 }
 
 .giftcard-logo-img {
-  height: 48px;
+  height: 52px;
   width: auto;
+  object-fit: contain;
 }
 
 .giftcard-badge {
@@ -1649,9 +1664,15 @@ button {
   }
 }
 
-.footer-brand img {
-  height: 52px;
-  margin-bottom: 1rem;
+.footer-brand img,
+.footer-brand .footer-logo-img {
+  height: 68px;
+  width: auto;
+  max-width: 250px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 1.25rem;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.25));
 }
 
 .footer-brand p {
