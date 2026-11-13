@@ -405,3 +405,33 @@ export const spaInfo = {
   quote: "“Vive tu momento de sanación o compártelo como el mejor regalo”",
   summary: "Somos Spa IKIGAI, Centro estético, terapéutico y de bienestar en Ovalle. Realizamos masajes, limpiezas faciales, tratamientos corporales y de bienestar con atención personalizada a cargo de profesional kinesióloga."
 };
+
+// Preguntas Frecuentes
+export const defaultFaqs = [
+  {
+    id: "faq-1",
+    question: "¿Cómo puedo agendar mi hora en Spa IKIGAI?",
+    answer: "Puedes agendar directamente a través de nuestro WhatsApp oficial <strong>+56 9 8869 8666</strong> o haciendo clic en los botones de reserva de esta página web. Te responderemos a la brevedad para confirmar día y horario disponible."
+  },
+  {
+    id: "faq-2",
+    question: "¿Qué medios de pago aceptan?",
+    answer: "Aceptamos <strong>transferencia bancaria, tarjetas de débito y tarjetas de crédito (con opción de cuotas)</strong> y link de pago online. En tratamientos o packs reductivos con kinesióloga, la tarifa promocional aplica para pago total con cualquiera de estos medios."
+  },
+  {
+    id: "faq-3",
+    question: "¿Dónde están ubicados y cuál es el horario de atención?",
+    answer: "Estamos ubicados en <strong>Cecilia Videla Salinas 755, Ovalle</strong>. Nuestro horario de atención es de <strong>lunes a sábado de 9:00 a 19:00 horas</strong> continuado."
+  },
+  {
+    id: "faq-4",
+    question: "¿Quién realiza los masajes terapéuticos y tratamientos corporales?",
+    answer: "Nuestros tratamientos corporales reductivos y masajes terapéuticos son realizados por una <strong>kinesióloga profesional</strong>, lo que garantiza una evaluación certera, técnica adecuada, máxima seguridad y resultados visibles."
+  },
+  {
+    id: "faq-5",
+    question: "¿Cómo debo prepararme o qué ropa debo llevar para mi masaje?",
+    answer: "Te recomendamos asistir con ropa cómoda. En Spa IKIGAI te proporcionamos un ambiente 100% privado, toallas tibias, batas desechables y sábanas clínicas de un solo uso para que tu única preocupación sea desconectarte y descansar."
+  }
+];
+

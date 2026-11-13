@@ -1,4 +1,9 @@
-import { servicesData, spaInfo } from './services-data.js';
+import { getServices, getSpaInfo, getFaqs } from './data-store.js';
+
+// Datos reactivos desde el almacenamiento local
+let servicesData = getServices();
+let spaInfo = getSpaInfo();
+let faqsData = getFaqs();
 
 // Estado de la aplicación
 const state = {
@@ -23,15 +28,28 @@ const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
 const mobileMenuDrawer = document.getElementById('mobile-menu-drawer');
 const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 const siteHeader = document.querySelector('.site-header');
+const faqsContainer = document.getElementById('faq-accordion-list');
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', () => {
   renderServices();
+  renderFaqs();
+  updateBusinessInfo();
   updateCartUI();
   setupEventListeners();
   setupGiftCardPreview();
-  setupFAQAccordion();
   checkBusinessStatus();
+
+  // Escuchar cambios provenientes del panel de administración
+  window.addEventListener('ikigai-store-change', () => {
+    servicesData = getServices();
+    spaInfo = getSpaInfo();
+    faqsData = getFaqs();
+    renderServices();
+    renderFaqs();
+    updateBusinessInfo();
+    updateCartUI();
+  });
 });
 
 // Renderizar tarjetas de servicios
@@ -47,8 +65,8 @@ function renderServices() {
     if (!q) return matchesCategory;
 
     const matchesName = service.name.toLowerCase().includes(q);
-    const matchesDesc = service.description.toLowerCase().includes(q);
-    const matchesCat = service.categoryName.toLowerCase().includes(q);
+    const matchesDesc = (service.description || '').toLowerCase().includes(q);
+    const matchesCat = (service.categoryName || '').toLowerCase().includes(q);
     const matchesBenefits = service.benefits ? service.benefits.some(b => b.toLowerCase().includes(q)) : false;
     const matchesZones = service.zones ? service.zones.some(z => z.name.toLowerCase().includes(q)) : false;
 
@@ -120,7 +138,7 @@ function renderServices() {
       <article class="service-card" data-id="${service.id}" data-category="${service.category}">
         <div class="service-card-media">
           <img src="${service.image}" alt="${service.name}" loading="lazy">
-          <span class="service-card-badge">${service.badge}</span>
+          <span class="service-card-badge">${service.badge || 'Destacado'}</span>
           <span class="service-duration-pill">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
@@ -178,6 +196,52 @@ function renderServices() {
       const id = e.currentTarget.dataset.id;
       toggleServiceInCart(id);
     });
+  });
+}
+
+// Renderizar Preguntas Frecuentes
+function renderFaqs() {
+  if (!faqsContainer) return;
+
+  faqsContainer.innerHTML = faqsData.map((faq, index) => {
+    const isOpen = index === 0;
+    return `
+      <div class="faq-item ${isOpen ? 'open' : ''}">
+        <button class="faq-question" aria-expanded="${isOpen}">
+          <span>${faq.question}</span>
+          <svg class="faq-icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          ${faq.answer}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  setupFAQAccordion();
+}
+
+// Actualizar datos del negocio en la interfaz
+function updateBusinessInfo() {
+  // Enlaces de WhatsApp
+  document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
+    const originalHref = a.getAttribute('href');
+    if (originalHref.includes('?text=')) {
+      const query = originalHref.split('?text=')[1];
+      a.href = `${spaInfo.whatsappUrl}?text=${query}`;
+    } else {
+      a.href = spaInfo.whatsappUrl;
+    }
+  });
+
+  // Enlaces de Instagram
+  document.querySelectorAll('a[href*="instagram.com"]').forEach(a => {
+    a.href = spaInfo.instagramUrl;
+    if (a.textContent.includes('@')) {
+      a.textContent = spaInfo.instagramHandle;
+    }
   });
 }
 
@@ -259,7 +323,7 @@ function updateCartUI() {
     state.cart.forEach((item, idx) => {
       msg += `${idx + 1}. *${item.name}* (${item.duration}) - ${item.priceFormatted}\n`;
     });
-    msg += `\n*Total estimado:* ${formattedSubtotal}\nUbicación: Cecilia Videla 755, Ovalle.\n¿Qué disponibilidad tienen para agendar?`;
+    msg += `\n*Total estimado:* ${formattedSubtotal}\nUbicación: ${spaInfo.addressShort || 'Cecilia Videla 755, Ovalle'}.\n¿Qué disponibilidad tienen para agendar?`;
     
     btnCheckoutWhatsapp.href = `${spaInfo.whatsappUrl}?text=${encodeURIComponent(msg)}`;
   }
@@ -383,9 +447,13 @@ function setupFAQAccordion() {
   faqItems.forEach(item => {
     const questionBtn = item.querySelector('.faq-question');
     if (questionBtn) {
-      questionBtn.addEventListener('click', () => {
+      // Remover listeners duplicados
+      const newBtn = questionBtn.cloneNode(true);
+      questionBtn.parentNode.replaceChild(newBtn, questionBtn);
+
+      newBtn.addEventListener('click', () => {
         const isOpen = item.classList.contains('open');
-        faqItems.forEach(i => i.classList.remove('open'));
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
         if (!isOpen) {
           item.classList.add('open');
         }

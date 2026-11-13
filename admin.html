@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración | Spa IKIGAI Ovalle</title>
+  
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       VISTA 1: ACCESO / INICIO DE SESIÓN PROTEGIDO
+       ========================================== -->
+  <div class="login-view-wrapper" id="login-view">
+    <div class="login-card">
+      <img src="assets/images/logo-web.png" alt="Spa IKIGAI Ovalle" class="login-logo-img">
+      <h1>Panel de Administración</h1>
+      <p class="subtitle">Gestión de Catálogo, Precios y Contenido Web</p>
+
+      <div class="login-error-alert" id="login-error"></div>
+
+      <form class="login-form" id="login-form" autocomplete="off">
+        <div class="form-group">
+          <label for="login-username">Usuario Administrador</label>
+          <input type="text" id="login-username" required placeholder="Ingresa tu usuario" autocomplete="off">
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Contraseña</label>
+          <input type="password" id="login-password" required placeholder="••••••••••••" autocomplete="off">
+        </div>
+
+        <button type="submit" class="btn-login">Acceder al Panel</button>
+      </form>
+
+      <div style="margin-top: 2rem; border-top: 1px solid var(--admin-border); padding-top: 1.25rem;">
+        <a href="index.html" style="color: var(--admin-text-muted); font-size: 0.85rem; text-decoration: none;">
+          ← Volver al sitio web de Spa IKIGAI
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       VISTA 2: DASHBOARD DE ADMINISTRACIÓN
+       ========================================== -->
+  <div class="admin-dashboard-wrapper" id="dashboard-view" style="display: none;">
+    <!-- Barra Lateral (Sidebar) -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <img src="assets/images/logo-footer.png" alt="Spa IKIGAI">
+        <div>
+          <span class="badge-admin">Administrador</span>
+        </div>
+      </div>
+
+      <nav class="admin-nav-menu" role="tablist">
+        <div class="admin-nav-item active" data-tab="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Resumen General</span>
+        </div>
+
+        <div class="admin-nav-item" data-tab="general">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Datos del Negocio</span>
+        </div>
+
+        <div class="admin-nav-item" data-tab="servicios">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          <span>Catálogo & Precios</span>
+        </div>
+
+        <div class="admin-nav-item" data-tab="reductivos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span>Planes Reductivos</span>
+        </div>
+
+        <div class="admin-nav-item" data-tab="faqs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <span>Preguntas Frecuentes</span>
+        </div>
+
+        <div class="admin-nav-item" data-tab="backup">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Backup & Código JS</span>
+        </div>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <a href="index.html" target="_blank" class="btn-view-site">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          <span>Ver Web en Vivo</span>
+        </a>
+
+        <button class="btn-logout" id="btn-logout">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Cerrar Sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Área de Contenido Principal -->
+    <main class="admin-content-area">
+      <!-- Barra Superior Fija -->
+      <header class="admin-top-bar">
+        <h2 id="admin-top-title">Resumen General</h2>
+        <div class="admin-top-actions">
+          <button class="btn-save-all" id="btn-global-save" title="Guardar todos los cambios localmente">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+            <span>Guardar Cambios</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- PESTAÑA: RESUMEN DASHBOARD -->
+      <section class="admin-tab-pane active" id="tab-dashboard">
+        <div class="metrics-row">
+          <div class="metric-card">
+            <div class="metric-icon" style="background:#EAF5F4; color:#0E8991;">💆</div>
+            <div class="metric-data">
+              <h3 id="metric-total-services">0</h3>
+              <p>Servicios Activos</p>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon" style="background:#FDF5E8; color:#C2934A;">✨</div>
+            <div class="metric-data">
+              <h3 id="metric-total-categories">0</h3>
+              <p>Categorías de Tratamientos</p>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon" style="background:#EBF5FB; color:#2980B9;">🩺</div>
+            <div class="metric-data">
+              <h3>2</h3>
+              <p>Planes con Kinesióloga</p>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon" style="background:#FDF1EF; color:#E68276;">❓</div>
+            <div class="metric-data">
+              <h3 id="metric-total-faqs">0</h3>
+              <p>Preguntas Frecuentes</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Centro Estético, Terapéutico y de Bienestar IKIGAI</h3>
+          </div>
+          <p style="color:var(--admin-text-muted); line-height:1.7; margin-bottom:1.5rem;">
+            Desde este panel de control puedes modificar fácilmente los precios, descripciones, horarios y medios de contacto de la web oficial en Ovalle. Los cambios se sincronizan en tu navegador y puedes exportar el código fuente actualizado con un solo clic.
+          </p>
+
+          <div style="display:flex; flex-wrap:wrap; gap:1rem;">
+            <button class="btn-action edit" onclick="document.querySelector('[data-tab=servicios]').click();" style="padding:0.75rem 1.25rem;">
+              Administrar Catálogo de Servicios
+            </button>
+            <button class="btn-action edit" onclick="document.querySelector('[data-tab=general]').click();" style="padding:0.75rem 1.25rem;">
+              Editar Horarios y Contacto
+            </button>
+            <a href="index.html" target="_blank" class="btn-action edit" style="padding:0.75rem 1.25rem; text-decoration:none;">
+              Visitar Página Principal
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- PESTAÑA: DATOS DEL NEGOCIO -->
+      <section class="admin-tab-pane" id="tab-general">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Información Institucional & Contacto</h3>
+          </div>
+
+          <form id="form-general-info">
+            <div class="form-grid-2">
+              <div class="admin-form-group">
+                <label for="info-name">Nombre del Spa</label>
+                <input type="text" id="info-name" required>
+              </div>
+
+              <div class="admin-form-group">
+                <label for="info-subtitle">Subtítulo / Especialidad</label>
+                <input type="text" id="info-subtitle" required>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="admin-form-group">
+                <label for="info-location">Dirección Completa</label>
+                <input type="text" id="info-location" required>
+              </div>
+
+              <div class="admin-form-group">
+                <label for="info-address-short">Dirección Resumida (Ovalle)</label>
+                <input type="text" id="info-address-short" required>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="admin-form-group">
+                <label for="info-hours">Horario de Atención</label>
+                <input type="text" id="info-hours" required>
+              </div>
+
+              <div class="admin-form-group">
+                <label for="info-whatsapp">Teléfono / WhatsApp (ej: +56988698666)</label>
+                <input type="text" id="info-whatsapp" required>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="admin-form-group">
+                <label for="info-instagram-handle">Instagram Handle (ej: @spa.ikigai.ovalle)</label>
+                <input type="text" id="info-instagram-handle" required>
+              </div>
+
+              <div class="admin-form-group">
+                <label for="info-instagram-url">URL de Instagram</label>
+                <input type="url" id="info-instagram-url" required>
+              </div>
+            </div>
+
+            <div class="admin-form-group">
+              <label for="info-quote">Cita o Lema Inspiracional</label>
+              <input type="text" id="info-quote" required>
+            </div>
+
+            <div class="admin-form-group">
+              <label for="info-summary">Descripción / Definición del Negocio</label>
+              <textarea id="info-summary" rows="3" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-save-all">Guardar Datos Institucionales</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- PESTAÑA: CATÁLOGO DE SERVICIOS -->
+      <section class="admin-tab-pane" id="tab-servicios">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Servicios y Lista de Precios</h3>
+            <button class="btn-save-all" id="btn-new-service">
+              <span>+ Nuevo Servicio</span>
+            </button>
+          </div>
+
+          <div class="table-toolbar">
+            <div class="search-filter-box">
+              <input type="search" id="service-search-input" placeholder="Buscar por nombre o descripción...">
+              <select id="service-category-filter">
+                <option value="all">Todas las categorías</option>
+                <option value="masajes">Masajes & Bienestar</option>
+                <option value="faciales">Tratamientos Faciales</option>
+                <option value="mirada">Mirada & Pestañas</option>
+                <option value="drenaje">Ritual Drenante</option>
+                <option value="reductivos">Reductivos & Kinesiología</option>
+                <option value="depilacion-femenina">Depilación Femenina</option>
+                <option value="depilacion-masculina">Depilación Masculina</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Tratamiento</th>
+                  <th>Categoría</th>
+                  <th>Duración</th>
+                  <th>Precio</th>
+                  <th>Pack (3 ses.)</th>
+                  <th>Etiqueta</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="services-table-body">
+                <!-- Poblado dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PESTAÑA: PLANES REDUCTIVOS -->
+      <section class="admin-tab-pane" id="tab-reductivos">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Planes Corporales Reductivos con Kinesióloga</h3>
+          </div>
+
+          <form id="form-reductivos-plans">
+            <h4 style="color:var(--admin-primary); margin-bottom:1rem;">1. Plan Transformador IKIGAI (8 sesiones)</h4>
+            <div class="form-grid-2">
+              <div class="admin-form-group">
+                <label for="plan-trans-price">Precio Oferta ($ CLP)</label>
+                <input type="number" id="plan-trans-price" required>
+              </div>
+
+              <div class="admin-form-group">
+                <label for="plan-trans-original">Precio Referencial</label>
+                <input type="text" id="plan-trans-original" required>
+              </div>
+            </div>
+
+            <div class="admin-form-group">
+              <label for="plan-trans-desc">Descripción del Plan</label>
+              <textarea id="plan-trans-desc" rows="2" required></textarea>
+            </div>
+
+            <hr style="border:none; border-top:1px dashed var(--admin-border); margin:2rem 0;">
+
+            <h4 style="color:var(--admin-primary); margin-bottom:1rem;">2. Plan Intensivo Premium IKIGAI (12 sesiones)</h4>
+            <div class="form-grid-2">
+              <div class="admin-form-group">
+                <label for="plan-prem-price">Precio Oferta ($ CLP)</label>
+                <input type="number" id="plan-prem-price" required>
+              </div>
+
+              <div class="admin-form-group">
+                <label for="plan-prem-original">Precio Referencial</label>
+                <input type="text" id="plan-prem-original" required>
+              </div>
+            </div>
+
+            <div class="admin-form-group">
+              <label for="plan-prem-desc">Descripción del Plan</label>
+              <textarea id="plan-prem-desc" rows="2" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-save-all">Guardar Planes Reductivos</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- PESTAÑA: PREGUNTAS FRECUENTES (FAQ) -->
+      <section class="admin-tab-pane" id="tab-faqs">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Preguntas Frecuentes de Clientes</h3>
+            <button class="btn-save-all" id="btn-new-faq">
+              <span>+ Nueva Pregunta</span>
+            </button>
+          </div>
+
+          <div id="faqs-list-container">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
+      </section>
+
+      <!-- PESTAÑA: BACKUP & CÓDIGO JS -->
+      <section class="admin-tab-pane" id="tab-backup">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Copias de Seguridad (Backup)</h3>
+          </div>
+          <p style="color:var(--admin-text-muted); margin-bottom:1.25rem;">
+            Descarga una copia completa de todos tus servicios, precios y configuraciones en formato JSON para respaldar o transferir a otro equipo.
+          </p>
+
+          <div style="display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+            <button class="btn-save-all" id="btn-download-json">
+              <span>Descargar Backup JSON</span>
+            </button>
+
+            <label class="btn-action edit" style="padding:0.65rem 1.25rem; cursor:pointer;">
+              <span>Restaurar Backup JSON</span>
+              <input type="file" id="input-import-json" accept=".json" style="display:none;">
+            </label>
+
+            <button class="btn-action delete" id="btn-reset-factory" style="padding:0.65rem 1.25rem;">
+              Restablecer Valores de Fábrica
+            </button>
+          </div>
+
+          <div class="admin-card-header" style="margin-top:2.5rem;">
+            <h3>Código JavaScript para Repositorio</h3>
+          </div>
+          <p style="color:var(--admin-text-muted); margin-bottom:1rem; font-size:0.88rem;">
+            Si deseas hacer permanentes tus cambios en GitHub, este generador crea automáticamente el código fuente listo para reemplazar en el archivo <code>assets/js/services-data.js</code>:
+          </p>
+
+          <textarea id="generated-code-box" rows="12" style="width:100%; font-family:monospace; font-size:0.82rem; padding:1rem; border-radius:8px; border:1.5px solid var(--admin-border); background:#FAFAFA; margin-bottom:1rem;" readonly></textarea>
+
+          <button class="btn-save-all" id="btn-copy-code">
+            <span>Copiar Código al Portapapeles</span>
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ==========================================
+       MODAL: CREAR / EDITAR SERVICIO
+       ========================================== -->
+  <div class="modal-overlay" id="service-modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modal-service-title">Editar Servicio</h3>
+        <button class="modal-close-btn" id="btn-close-modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="form-service">
+          <input type="hidden" id="service-id">
+
+          <div class="form-grid-2">
+            <div class="admin-form-group">
+              <label for="service-name">Nombre del Tratamiento</label>
+              <input type="text" id="service-name" required placeholder="Ej: Masaje Descontracturante Superior">
+            </div>
+
+            <div class="admin-form-group">
+              <label for="service-category">Categoría</label>
+              <select id="service-category" required>
+                <option value="masajes">Masajes & Bienestar</option>
+                <option value="faciales">Tratamientos Faciales</option>
+                <option value="mirada">Mirada & Pestañas</option>
+                <option value="drenaje">Ritual Drenante</option>
+                <option value="reductivos">Reductivos & Kinesiología</option>
+                <option value="depilacion-femenina">Depilación Femenina</option>
+                <option value="depilacion-masculina">Depilación Masculina</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="admin-form-group">
+              <label for="service-category-name">Etiqueta de Categoría visible</label>
+              <input type="text" id="service-category-name" placeholder="Ej: Masajes & Bienestar">
+            </div>
+
+            <div class="admin-form-group">
+              <label for="service-duration">Duración</label>
+              <input type="text" id="service-duration" required placeholder="Ej: 50 min">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="admin-form-group">
+              <label for="service-price">Precio Individual ($ CLP)</label>
+              <input type="number" id="service-price" required placeholder="Ej: 40000">
+            </div>
+
+            <div class="admin-form-group">
+              <label for="service-pack-price">Precio Pack 3 Sesiones ($ opcional)</label>
+              <input type="number" id="service-pack-price" placeholder="Ej: 95000">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="admin-form-group">
+              <label for="service-original-price">Precio Referencial / Anterior (opcional)</label>
+              <input type="text" id="service-original-price" placeholder="Ej: $360.000">
+            </div>
+
+            <div class="admin-form-group">
+              <label for="service-badge">Badge o Distintivo</label>
+              <input type="text" id="service-badge" placeholder="Ej: Popular, Kinesióloga, Oferta">
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label for="service-image">Ruta o URL de Imagen</label>
+            <input type="text" id="service-image" required placeholder="assets/images/massage-relaxation.jpg">
+          </div>
+
+          <div class="admin-form-group">
+            <label for="service-desc">Descripción</label>
+            <textarea id="service-desc" rows="3" required placeholder="Describe las sensaciones y objetivos del tratamiento..."></textarea>
+          </div>
+
+          <div class="admin-form-group">
+            <label for="service-benefits">Beneficios Destacados (uno por línea)</label>
+            <textarea id="service-benefits" rows="3" placeholder="Alivia contracturas cervicales&#10;Estimula la circulación tisular&#10;Paz interior y desconexión"></textarea>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-action" id="btn-cancel-modal">Cancelar</button>
+            <button type="submit" class="btn-save-all">Guardar Servicio</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor Toast -->
+  <div class="toast-notification" id="admin-toast"></div>
+
+  <!-- Script del Panel Admin -->
+  <script type="module" src="assets/js/admin.js"></script>
+</body>
+</html>

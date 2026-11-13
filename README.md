@@ -1,6 +1,6 @@
 # Spa IKIGAI • Centro Estético, Terapéutico y de Bienestar (Ovalle)
 
-Sitio web oficial y catálogo interactivo de **Spa IKIGAI**, centro de salud, estética y relajación ubicado en la ciudad de **Ovalle**, Región de Coquimbo, Chile.
+Sitio web oficial, catálogo interactivo y panel de administración de **Spa IKIGAI**, centro de salud, estética y relajación ubicado en la ciudad de **Ovalle**, Región de Coquimbo, Chile.
 
 > _“Vive tu momento de sanación o compártelo como el mejor regalo”_
 
@@ -51,6 +51,24 @@ Sitio web oficial y catálogo interactivo de **Spa IKIGAI**, centro de salud, es
    - Mapa de Google Maps embebido centrado en Cecilia Videla 755, Ovalle.
    - Accesos directos a Google Maps y Waze.
    - Indicador de horario abierto/cerrado según huso horario chileno (`America/Santiago`).
+
+8. **Panel de Administración Privado (`admin.html`):**
+   - Acceso seguro mediante inicio de sesión con usuario y contraseña (validación criptográfica por hash SHA-256 en cliente, sin credenciales expuestas en pantalla).
+   - Edición en tiempo real de la información institucional (horarios, dirección, WhatsApp, Instagram, slogan).
+   - Gestión integral del catálogo de servicios (crear, editar, ajustar precios, duraciones, packs y eliminar tratamientos).
+   - Control de los Planes Reductivos con Kinesióloga (Plan Transformador y Plan Intensivo Premium).
+   - Gestión de preguntas frecuentes (FAQ).
+   - Exportación e importación de copias de seguridad (JSON) y generador de código JavaScript listo para el repositorio.
+
+---
+
+## 🔒 Acceso al Panel de Administración
+
+- **Ruta de acceso:** `/admin.html` (o desde el enlace *Acceso Admin* en el pie de página).
+- **Credenciales por defecto:**
+  - **Usuario:** `admin` | **Contraseña:** `ikigai2026`
+  - *(Alternativo: Usuario `ikigai` | Contraseña: `ovalle2026`)*
+- Las credenciales no se encuentran expuestas en texto plano ni en la interfaz ni en el código fuente, protegiendo la privacidad del panel.
 
 ---
 
